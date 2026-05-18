@@ -1,0 +1,113 @@
+---
+import Wrapper from "../layouts/Wrapper.astro"
+/**
+ * GM Engineering & Robotics - Privacy Policy Component
+ * Integrated Theme: Deep Sea Blue (#0F172A) & Emerald Green (#10B981)
+ */
+
+const companyName = "GM Engineering & Robotics";
+const contactEmail = "info.gmenr@gmail.com";
+const effectiveDate = "May 16, 2026";
+---
+
+<Wrapper>
+<section class="min-h-screen bg-[#0F172A] text-white py-24 px-6 relative overflow-hidden font-sans">
+  <div class="absolute top-0 right-1/4 w-96 h-96 bg-[#10B981]/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-[#1E40AF]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-4xl mx-auto z-10 relative">
+    
+    <div class="border-b border-white/10 pb-8 mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-1.5 h-6 bg-[#10B981]"></span>
+        <span class="text-xs font-bold uppercase tracking-widest text-[#10B981]">Legal Documentation</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tighter uppercase mb-2">Privacy Policy</h1>
+      <p class="text-gray-400 text-sm">Last Updated: {effectiveDate}</p>
+    </div>
+
+    <div class="space-y-10 text-gray-300 leading-relaxed font-light">
+      
+      <p class="text-lg text-gray-200">
+        At {companyName}, we value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or interact with our digital channels.
+      </p>
+
+      <div class="space-y-3">
+        <h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          <span class="text-[#10B981]">01.</span> Information We Collect
+        </h2>
+        <p>
+          We believe in strict data minimization. We only collect the absolute necessary details required to process your industrial queries and fulfill service requirements. This is limited to:
+        </p>
+        <ul class="list-none pl-0 space-y-2 mt-2">
+          <li class="flex items-center gap-3 bg-[#11192E] border border-white/5 p-3 rounded-sm">
+            <svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            <span><strong class="text-white">Identity Data:</strong> Full Name / Corporate Representative Name.</span>
+          </li>
+          <li class="flex items-center gap-3 bg-[#11192E] border border-white/5 p-3 rounded-sm">
+            <svg class="w-4 h-4 text-[#10B981] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            <span><strong class="text-white">Contact Data:</strong> Corporate or Personal Email Address.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          <span class="text-[#10B981]">02.</span> How We Use Your Data
+        </h2>
+        <p>
+          Your information is processed safely and is exclusively utilized for legitimate technical and business operations, specifically to:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-gray-400">
+          <li>Respond to your technical inquiries, automation RFPs, and consultation requests.</li>
+          <li>Provide tailored project estimates, blueprints, or commercial quotations.</li>
+          <li>Send operational updates related to ongoing machine engineering or installation contracts.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          <span class="text-[#10B981]">03.</span> Data Security & Retention
+        </h2>
+        <p>
+          We implement industry-standard administrative, physical, and digital security measures designed to safeguard your name and email address from unauthorized access, disclosure, or alteration. We retain this data only as long as necessary to provide you with engineering support or to comply with corporate accounting and legal liabilities.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          <span class="text-[#10B981]">04.</span> Third-Party Disclosures
+        </h2>
+        <p>
+          We maintain absolute confidentiality. We <strong class="text-white font-medium">do not sell, trade, rent, or lease</strong> your client data to third-party marketing networks. Your data is only shared with trusted legal entities if required by law or to protect our legitimate operational framework.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          <span class="text-[#10B981]">05.</span> Your Rights & Choice
+        </h2>
+        <p>
+          You retain complete control over your data. At any time, you can reach out to us to review, update, modify, or request the absolute deletion of your name and email from our internal automation databases.
+        </p>
+      </div>
+
+      <div class="mt-12 p-6 bg-[#11192E] border border-white/5 rounded-sm relative group">
+        <div class="absolute top-0 left-0 w-1 h-full bg-[#10B981]"></div>
+        <h3 class="text-lg font-bold text-white mb-2">Questions or Concerns?</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          If you have any clarifications regarding this privacy policy or our data security practices, please contact our administrative desk:
+        </p>
+        <a 
+          href={`mailto:${contactEmail}`} 
+          class="inline-flex items-center justify-center transition-all duration-300 ease-in-out rounded-sm font-bold uppercase tracking-wider bg-[#10B981] text-[#0F172A] hover:bg-[#059669] shadow-[0_0_15px_rgba(16,185,129,0.3)] px-5 py-2.5 text-[11px]"
+        >
+          Contact Privacy Desk
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+</Wrapper>

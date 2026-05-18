@@ -1,0 +1,154 @@
+/* ==========================================
+   REUSABLE ANIMATION UTILITY SHEET
+   ========================================== */
+
+/* 1. KEYFRAMES DEFINITIONS */
+
+/* Fade In Up (Smooth entry) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade In Left */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Zoom In */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Subtle Pulse (For buttons/Logos) */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+
+/* 2. UTILITY CLASSES (Inhe HTML me use karein) */
+
+.anim-fade-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.anim-fade-left {
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.anim-zoom {
+  animation: zoomIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.anim-pulse {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Delay Helpers (Wait karne ke liye) */
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+/* Initial Hidden State (Taki jhatka na lage) */
+.anim-fade-up, .anim-fade-left, .anim-zoom {
+  opacity: 0;
+}
+
+
+/* ==========================================
+   ADVANCED & INTERESTING ANIMATIONS
+   ========================================== */
+
+/* 1. THE REVEALER (Niche se upar elastic bounce ke saath) */
+@keyframes elasticReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    filter: blur(10px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.02);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 2. THE GLOW SHIMMER (Buttons ya Cards ke liye - Luxury feel) */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* 3. FLOATING (Hawa mein tairta hua - Hero images ke liye) */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+/* 4. TEXT REVEAL (Letter by letter feel) */
+@keyframes letterSpacing {
+  0% { letter-spacing: -0.5em; opacity: 0; filter: blur(10px); }
+  100% { letter-spacing: normal; opacity: 1; filter: blur(0px); }
+}
+
+/* ==========================================
+   INTERESTING UTILITY CLASSES
+   ========================================== */
+
+/* Bounce Entry - Best for Hero Text */
+.anim-elastic {
+  animation: elasticReveal 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Cinematic Entrance - Best for Headlines */
+.anim-cinematic {
+  animation: letterSpacing 1.2s ease-out forwards;
+}
+
+/* Floating Icon - Best for Graphics/Logos */
+.anim-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Luxury Shimmer - Add this to buttons */
+.anim-shimmer {
+  background: linear-gradient(90deg, #1a1a1a, #333, #1a1a1a);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+  color: white;
+}
+
+/* Hover Zoom - Just add this class */
+.hover-reveal {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-reveal:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}

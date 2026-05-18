@@ -1,0 +1,123 @@
+---
+/**
+ * GM-Connect Animated Navbar
+ * Integrated Palette: Emerald & Deep Sea Blue
+ * Features: Page-load entry transition
+ */
+
+const navLinks = [
+  { name: 'Home', href: '#home' },
+  { name: 'Services', href: '#services' },
+  { name: 'FAQ', href: '#faq' },
+  { name: 'Contact', href: '#contact' },
+];
+
+// Integrated Button Styles
+const btnBase = "inline-flex items-center justify-center transition-all duration-300 ease-in-out rounded-sm font-bold uppercase tracking-wider";
+const btnInnovation = "bg-[#10B981] text-[#0F172A] hover:bg-[#059669] shadow-[0_0_15px_rgba(16,185,129,0.3)] px-5 py-2 text-[11px]";
+
+const brand = "GM-Connect";
+---
+
+<nav id="main-nav" class="opacity-0 w-full z-50 bg-[#0F172A] border-b border-white/5 shadow-xl transition-all duration-700">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    
+    <a href="/" class="text-2xl font-black text-white tracking-tighter flex items-center gap-1 group">
+      <span class="w-1.5 h-6 bg-[#1E40AF] group-hover:bg-[#10B981] transition-colors"></span>
+      {brand}
+    </a>
+
+    <div class="hidden lg:flex items-center gap-2">
+      {navLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class={`relative px-5 py-2 text-[11px] font-bold uppercase tracking-widest transition-colors nav-item-hover ${link.name === 'Home' ? 'text-white active-link' : 'text-gray-300 hover:text-white'}`}
+        >
+          {link.name}
+        </a>
+      ))}
+    </div>
+
+    <div class="flex items-center gap-4">
+      <a href="#contact" class={`${btnBase} ${btnInnovation}`}>
+        Contact Us
+      </a>
+      
+      <button id="mobile-btn" class="lg:hidden text-white p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden lg:hidden bg-[#0F172A] border-t border-white/5 p-6 space-y-4 ">
+    {navLinks.map((link) => (
+      <a href={link.href} class="block text-white font-bold uppercase tracking-widest text-sm">{link.name}</a>
+    ))}
+  </div>
+</nav>
+
+<style is:global>
+  /* The Entry Animation */
+  @keyframes navReveal {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-nav-entry {
+    animation: navReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Hover Interaction logic */
+  .nav-item-hover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #10B981;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  /* Apply animation on hover OR if active-link class is present */
+  .nav-item-hover:hover::after,
+  .nav-item-hover.active-link::after {
+    width: 60%;
+  }
+</style>
+
+<script>
+  const initNavbar = () => {
+    const nav = document.getElementById('main-nav');
+    const mobileBtn = document.getElementById('mobile-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Trigger the entry animation after a tiny delay for smooth rendering
+    if (nav) {
+      setTimeout(() => {
+        nav.classList.add('animate-nav-entry');
+      }, 100);
+    }
+
+    // Mobile Toggle
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  };
+
+  // Run on initial load
+  initNavbar();
+  // Run after Astro page navigation
+  document.addEventListener('astro:after-swap', initNavbar);
+</script>

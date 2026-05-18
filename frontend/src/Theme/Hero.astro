@@ -1,0 +1,182 @@
+---
+/**
+ * GM-Connect "Industrial Engineering" Hero Section
+ * Version: Mobile Centered + Auto-sliding Industrial Visuals
+ */
+
+const title = "Smart Automation";
+const subtitle = "Solutions";
+const description = "Our team of senior experts delivers tailor-made engineering solutions—ranging from high-speed automated assembly lines and specialized pharmaceutical rack systems to industrial rooftop solar integrations and complete machine retrofitting.";
+
+// Button Styles
+const btnBase = "inline-flex items-center justify-center transition-all duration-300 ease-in-out font-bold uppercase tracking-widest text-[11px] px-8 py-4 active:scale-[0.98]";
+const btnInnovation = "bg-[#10B981] text-[#0F172A] hover:bg-[#059669] shadow-[0_0_20px_rgba(16,185,129,0.3)]";
+const btnGhost = "bg-transparent border border-white/20 text-white hover:bg-white hover:text-[#0F172A]";
+---
+
+<section id = "home" class="p-4 relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0F172A]">
+  
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 opacity-10" 
+         style="background-image: radial-gradient(#94A3B8 0.5px, transparent 0.5px); background-size: 30px 30px;"></div>
+    <div class="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-[#1E40AF]/20 blur-[120px] rounded-full"></div>
+    <div class="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-[#10B981]/10 blur-[120px] rounded-full"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-12 flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center text-center lg:text-left">
+    
+    <div class="relative order-2 lg:order-2 hero-visual opacity-0 scale-95 h-[350px] md:h-[450px] w-full max-w-[500px] lg:max-w-none">
+      
+      <div id="visual-slider" class="relative h-full w-full">
+        
+        <div class="slide absolute inset-0 transition-all duration-1000 opacity-100 translate-x-0">
+          <div class="h-full w-full border border-white/10 bg-white/5 backdrop-blur-xl rounded-3xl p-6 md:p-10 overflow-hidden flex flex-col justify-center">
+             <div class="flex justify-between border-b border-white/10 pb-4 mb-6">
+                <span class="text-[#10B981] font-mono text-[9px] md:text-[10px]">UNIT: MECH-77</span>
+                <span class="text-white/40 font-mono text-[9px] md:text-[10px]">SCALE: 1:25</span>
+             </div>
+             <svg viewBox="0 0 400 200" class="w-full h-auto stroke-white/20 fill-none">
+                <rect x="50" y="50" width="300" height="100" rx="4" stroke-dasharray="5 5" />
+                <circle cx="200" cy="100" r="40" stroke="#10B981" stroke-width="2" />
+                <path d="M100 100 H300 M200 50 V150" stroke-width="1" />
+                <circle cx="100" cy="100" r="5" fill="#1E40AF" />
+                <circle cx="300" cy="100" r="5" fill="#1E40AF" />
+             </svg>
+             <div class="mt-8 space-y-3">
+                <p class="text-white font-bold tracking-widest text-[11px] md:text-sm uppercase">Structural Integrity: Optimal</p>
+                <div class="h-1 w-full bg-white/5 rounded-full"><div class="h-full bg-[#10B981] w-[92%]"></div></div>
+             </div>
+          </div>
+        </div>
+
+        <div class="slide absolute inset-0 transition-all duration-1000 opacity-0 translate-x-10">
+          <div class="h-full w-full border border-white/10 bg-white/5 backdrop-blur-xl rounded-3xl p-6 md:p-10 flex flex-col justify-center">
+             <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto mb-8">
+                <div class="absolute inset-0 border-4 border-[#1E40AF]/20 rounded-full"></div>
+                <div class="absolute inset-0 border-t-4 border-[#10B981] rounded-full animate-spin-slow"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span class="text-white text-2xl md:text-3xl font-black">45.8</span>
+                    <span class="text-[#10B981] text-[9px] md:text-[10px] font-bold uppercase">PSI Pressure</span>
+                </div>
+             </div>
+             <div class="grid grid-cols-2 gap-4">
+                <div class="bg-black/20 p-3 rounded-lg border border-white/5">
+                    <p class="text-[8px] md:text-[9px] text-white/40 uppercase">Flow Rate</p>
+                    <p class="text-white font-mono text-xs md:text-base">12.5 L/m</p>
+                </div>
+                <div class="bg-black/20 p-3 rounded-lg border border-white/5">
+                    <p class="text-[8px] md:text-[9px] text-white/40 uppercase">Temp</p>
+                    <p class="text-white font-mono text-xs md:text-base">180°C</p>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <div class="slide absolute inset-0 transition-all duration-1000 opacity-0 translate-x-10">
+          <div class="h-full w-full border border-white/10 bg-white/5 backdrop-blur-xl rounded-3xl p-6 md:p-10 flex flex-col justify-center text-left">
+             <h3 class="text-white font-bold uppercase tracking-widest text-[10px] md:text-xs mb-8">Production Line Alpha</h3>
+             <div class="space-y-6 md:space-y-8">
+                {[1,2,3].map((i) => (
+                  <div class="relative flex items-center gap-4">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white/5 border border-white/10 rounded flex items-center justify-center text-[#10B981] font-mono text-xs">0{i}</div>
+                    <div class="flex-1 h-2 md:h-3 bg-white/5 rounded-full overflow-hidden">
+                        <div class={`h-full bg-gradient-to-r from-[#10B981] to-[#1E40AF] ${i===1 ? 'w-full' : i===2 ? 'w-3/4' : 'w-1/2'}`}></div>
+                    </div>
+                  </div>
+                ))}
+             </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
+        <div class="dot w-8 md:w-10 h-1 bg-[#10B981] rounded-full transition-all"></div>
+        <div class="dot w-8 md:w-10 h-1 bg-white/20 rounded-full transition-all"></div>
+        <div class="dot w-8 md:w-10 h-1 bg-white/20 rounded-full transition-all"></div>
+      </div>
+    </div>
+
+    <div class="hero-content order-1 lg:order-1 opacity-0 translate-y-10 flex flex-col items-center lg:items-start">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1E40AF]/10 border border-[#1E40AF]/20 mb-6">
+        <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+        <span class="text-[9px] md:text-[10px] font-bold text-[#94A3B8] uppercase tracking-[0.3em]">Operational Excellence</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[0.95] lg:leading-[0.9] tracking-tighter mb-4">
+        {title}<br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#1E40AF]">
+          {subtitle}
+        </span>
+      </h1>
+
+      <p class="text-[#94A3B8] text-base md:text-lg max-w-lg mb-10 leading-relaxed font-medium">
+        {description}
+      </p>
+
+      <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+        <a href="#contact" class={`${btnBase} ${btnInnovation}`}>Send An Inquiry</a>
+        <a href="#services" class={`${btnBase} ${btnGhost}`}>Our Services</a>
+      </div>
+      
+      <div class="mt-16 w-full grid grid-cols-3 gap-4 md:gap-8 border-t border-white/5 pt-8">
+        <div>
+          <div class="text-white font-black text-xl md:text-2xl tracking-tighter">100%</div>
+          <div class="text-[8px] md:text-[9px] uppercase tracking-widest text-[#52796F]">Accuracy</div>
+        </div>
+        <div>
+          <div class="text-white font-black text-xl md:text-2xl tracking-tighter">15+</div>
+          <div class="text-[8px] md:text-[9px] uppercase tracking-widest text-[#52796F]">Industries</div>
+        </div>
+        <div>
+          <div class="text-white font-black text-xl md:text-2xl tracking-tighter">24/7</div>
+          <div class="text-[8px] md:text-[9px] uppercase tracking-widest text-[#52796F]">Automation</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hero-content { animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+  .hero-visual { animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+  @keyframes heroReveal { to { opacity: 1; transform: translateY(0) scale(1); } }
+  .animate-spin-slow { animation: rotate 10s linear infinite; }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.style.opacity = '1';
+        slide.style.transform = 'translateX(0)';
+        dots[i].style.backgroundColor = '#10B981';
+      } else {
+        slide.style.opacity = '0';
+        slide.style.transform = 'translateX(30px)';
+        dots[i].style.backgroundColor = 'rgba(255,255,255,0.2)';
+      }
+    });
+  }
+
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }, 5000);
+
+  // Parallax - Disabled on small touches to prevent jitters, active on mouse
+  document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth < 1024) return;
+    const visual = document.querySelector('.hero-visual') as HTMLElement;
+    if (!visual) return;
+    const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+    const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+    visual.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  });
+</script>

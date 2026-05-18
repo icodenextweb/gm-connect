@@ -1,0 +1,187 @@
+---
+import BaseLayout from "../layouts/Wrapper.astro";
+import { createClient } from "@sanity/client";
+import imageUrlBuilder from '@sanity/image-url';
+
+const client = createClient({
+  projectId: import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID,
+  dataset: "production",
+  useCdn: false,
+  apiVersion: "2024-04-27",
+});
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
+const query = `*[_type == "service"] | order(publishedAt desc) {
+  title,
+  description,
+  icon,
+  mainImage,
+  "slug": slug.current
+}`;
+
+const services = await client.fetch(query);
+
+const colors = {
+  pageBg: "bg-[#0F172A]",
+  cardBase: "bg-[#10B981]",
+  cardHover: "hover:bg-[#059669]",
+  accentBlue: "bg-[#1E40AF]",
+  textDark: "text-[#0F172A]",
+  textLight: "text-white",
+  borderMuted: "border-white/10"
+};
+
+const typography = {
+  fontMono: "font-mono",
+  sizeHero: "text-6xl md:text-8xl",
+  sizeTitle: "text-2xl",
+  weightBlack: "font-black",
+  spacingWide: "tracking-[0.2em]"
+};
+---
+
+<BaseLayout title="Engineering Services | GM-Connect">
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+  />
+
+  <main id="services" class={`${colors.pageBg} min-h-screen py-24 px-6 overflow-x-hidden`}>
+    
+    <header class="max-w-7xl mx-auto mb-20 animate-fade-down">
+      <div class="flex items-center gap-4 mb-6">
+        <div class={`h-[2px] w-12 ${colors.cardBase}`}></div>
+        <span class={`${colors.textLight} ${typography.fontMono} text-xs uppercase ${typography.spacingWide}`}>
+          System Catalog 2026
+        </span>
+      </div>
+    
+      <h1 class={`${typography.sizeHero} ${typography.weightBlack} ${colors.textLight} tracking-tighter leading-none mb-8`}>
+        CORE <span class="opacity-30">SERVICES</span>
+      </h1>
+      
+      <div class={`w-full h-px ${colors.borderMuted} border-b`}></div>
+    </header>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {services.map((service: any, index: number) => (
+        <a 
+          href={`/services/${service.slug}`} 
+          class={`group relative ${colors.cardBase} ${colors.cardHover} p-10 flex flex-col justify-between transition-all duration-500 ease-in-out min-h-[400px] rounded-sm shadow-2xl overflow-hidden animate-fade-up`}
+          style={`animation-delay: ${index * 150}ms;`}
+        >
+          {/* Permanent Blue Accent - Fixed at 100% opacity */}
+          <div class={`absolute top-0 right-0 w-24 h-24 ${colors.accentBlue} clip-path-triangle z-20`}></div>
+
+          <div class="relative z-10">
+            {/* Icon Header */}
+            <div class="flex justify-between items-start mb-12">
+              <div class={`${colors.textDark} text-4xl group-hover:scale-110 transition-transform duration-500 ease-out`}>
+                {service.icon ? (
+                  <i class={service.icon}></i>
+                ) : (
+                  <i class="fa-solid fa-microchip"></i>
+                )}
+              </div>
+             
+              <div class={`${typography.fontMono} text-[10px] font-bold ${colors.textDark} opacity-40 uppercase border border-[#0F172A]/20 px-2 py-1`}>
+                ID: {service.slug.substring(0, 8)}
+              </div>
+            </div>
+
+            {/* Content with subtle slide effect */}
+            <h2 class={`${typography.sizeTitle} ${typography.weightBlack} ${colors.textDark} uppercase leading-tight mb-4 group-hover:translate-x-1 transition-transform duration-300`}>
+              {service.title}
+            </h2>
+            <p class={`${colors.textDark} opacity-80 text-sm leading-relaxed font-medium mb-8 max-w-xs group-hover:opacity-100 transition-opacity duration-300`}>
+              {service.description || "Next-gen industrial integration modules optimized for high-performance delivery."}
+            </p>
+          </div>
+
+          <div class="relative z-10 flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class={`${typography.fontMono} text-[10px] font-bold uppercase ${colors.textDark} opacity-40`}>Module Status</span>
+              <span class={`${typography.fontMono} text-xs font-bold ${colors.textDark}`}>DEPLOYED // ACTIVE</span>
+            </div>
+            
+            <div class={`flex items-center gap-2 ${colors.textDark} text-xs font-bold uppercase group-hover:translate-x-2 transition-all duration-300`}>
+              <span>Details</span>
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div>
+
+          {/* Background Image - contained by overflow-hidden and scaled on hover */}
+          {service.mainImage && (
+            <div class="absolute -right-16 -bottom-16 w-64 h-64 opacity-0 group-hover:opacity-25 transition-all duration-700 mix-blend-multiply grayscale group-hover:scale-110 pointer-events-none">
+              <img 
+                src={urlFor(service.mainImage).width(400).url()} 
+                alt="" 
+                class="w-full h-full object-cover rounded-full"
+              />
+            </div>
+          )}
+        </a>
+      ))}
+    </div>
+
+    <footer class="max-w-7xl mx-auto mt-24 flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-8 animate-fade-up" style="animation-delay: 600ms;">
+      <div class="flex gap-10">
+        <div class="flex flex-col gap-1">
+          <span class="text-white/20 text-[9px] uppercase font-bold tracking-widest">Division</span>
+          <span class="text-gray-400 font-mono text-[11px]">GM-CONNECT_INDUSTRIAL</span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <span class="text-white/20 text-[9px] uppercase font-bold tracking-widest">Terminal</span>
+          <span class="text-gray-400 font-mono text-[11px]">V4.02_STABLE</span>
+        </div>
+      </div>
+      
+      <div class="mt-8 md:mt-0">
+        <span class="text-white/10 font-mono text-[10px]">© 2026 GLOBAL CONNECTIVITY PROTOCOLS</span>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Shape utility */
+  .clip-path-triangle {
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+  }
+
+  /* Entrance Animations */
+  .animate-fade-up {
+    animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-fade-down {
+    animation: fade-down 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-down {
+    from {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+/**
+ * GM Engineering & Robotics - Professional Industrial Footer
+ * Integrated Palette: Emerald Green (#10B981) & Deep Sea Blue (#0F172A)
+ */
+
+const currentYear = new Date().getFullYear();
+const companyName = "GM Engineering & Robotics";
+const email = "info.gmenr@gmail.com";
+
+// Links mapping matching your architecture
+const solutionLinks = [
+  { name: 'Industrial Automation', href: '#services' },
+  { name: 'Robotics & Cobots', href: '#services' },
+  { name: 'Machine Retrofitting', href: '#services' },
+  { name: 'Industry 4.0 Integration', href: '#services' }
+];
+
+const companyLinks = [
+  { name: 'Our Story', href: '#story' },
+  { name: 'Privacy Policy', href: '/privacy' },
+  { name: 'Frequently Asked Questions', href: '#faq' },
+  { name: 'Contact Desk', href: '#contact' }
+];
+---
+
+<footer class="bg-[#0F172A] text-white border-t border-white/5 pt-16 pb-8 px-6 font-sans relative overflow-hidden">
+  <div class="absolute top-0 right-1/3 w-72 h-72 bg-[#10B981]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/5">
+    
+    <div class="md:col-span-5 space-y-4">
+      <a href="/" class="text-xl font-black tracking-tighter uppercase flex items-center gap-1.5">
+        <span class="w-1.5 h-5 bg-[#10B981]"></span>
+        <span>GM Engineering <span class="text-[#10B981]">&</span> Robotics</span>
+      </a>
+      <p class="text-gray-400 text-xs leading-relaxed max-w-sm font-light">
+        Empowering global industries with intelligent, efficient, and sustainable automation solutions built for the Fourth Industrial Revolution (Industry 4.0).
+      </p>
+    </div>
+
+    <div class="md:col-span-3 space-y-3">
+      <h4 class="text-[10px] font-bold uppercase tracking-widest text-[#10B981]">
+        Expertise
+      </h4>
+      <ul class="space-y-2 text-xs font-light text-gray-400">
+        {solutionLinks.map((link) => (
+          <li>
+            <a href={link.href} class="hover:text-white transition-colors duration-200">
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="md:col-span-4 space-y-3">
+      <h4 class="text-[10px] font-bold uppercase tracking-widest text-[#10B981]">
+        Company & Legal
+      </h4>
+      <ul class="space-y-2 text-xs font-light text-gray-400">
+        {companyLinks.map((link) => (
+          <li>
+            <a href={link.href} class="hover:text-white transition-colors duration-200 flex items-center gap-1">
+              {link.name === 'Privacy Policy' && <span class="w-1 h-1 bg-[#10B981] rounded-full"></span>}
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-gray-500 font-light">
+    <div>
+      &copy; {currentYear} {companyName}. All Rights Reserved.
+    </div>
+    <div class="flex items-center gap-6">
+      <a href={`mailto:${email}`} class="hover:text-white transition-colors">
+        {email}
+      </a>
+      <span class="text-white/10">|</span>
+      <span class="text-gray-600">Kolhapur, India</span>
+    </div>
+  </div>
+</footer>

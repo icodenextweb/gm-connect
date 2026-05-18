@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../../layouts/Wrapper.astro";
+import { createClient } from "@sanity/client";
+import imageUrlBuilder from '@sanity/image-url';
+import { PortableText } from "astro-portabletext";
+
+const client = createClient({
+  projectId: import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID,
+  dataset: "production",
+  useCdn: false,
+  apiVersion: "2024-04-27",
+});
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
+export async function getStaticPaths() {
+  const client = createClient({
+    projectId: import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID,
+    dataset: "production",
+    useCdn: false,
+    apiVersion: "2024-04-27",
+  });
+
+  const services = await client.fetch(`*[_type == "service"]{ "slug": slug.current }`);
+  return services.map((service: any) => ({
+    params: { slug: service.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const service = await client.fetch(
+  `*[_type == "service" && slug.current == $slug][0]{
+    title,
+    description,
+    mainImage,
+    icon,
+    body
+  }`,
+  { slug }
+);
+
+if (!service) return Astro.redirect("/404");
+---
+
+<BaseLayout title={`${service.title} | Specifications`}>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <article class="bg-[#0F172A] min-h-screen text-white pt-32 pb-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      
+      <a href="/" class="inline-flex items-center gap-3 text-gray-500 hover:text-[#10B981] transition-colors mb-12 uppercase text-[10px] font-bold tracking-[0.2em]">
+        <i class="fa-solid fa-chevron-left text-[14px]"></i> Back to Home
+      </a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        
+        <div class="lg:col-span-8">
+          <header class="mb-12">
+            <div class="flex items-center gap-4 mb-4">
+               {service.icon && <i class={`${service.icon} text-[#10B981] text-[25px]`}></i>}
+               <div class="h-px flex-1 bg-white/10"></div>
+            </div>
+            <h1 class="text-4xl md:text-4xl font-black mb-6 tracking-tighter uppercase">{service.title}</h1>
+            <p class="text-xl text-gray-400 italic font-light leading-relaxed border-l-2 border-[#10B981] pl-6">
+              {service.description}
+            </p>
+          </header>
+
+          {service.mainImage && (
+            <div class="relative group rounded-sm overflow-hidden mb-16  ">
+              <img 
+                src={urlFor(service.mainImage).width(1000).url()} 
+                alt={service.mainImage.alt}
+                class=" opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+              />
+              <div class="absolute inset-0 shadow-[inset_0_0_100px_rgba(15,23,42,0.8)] pointer-events-none"></div>
+            </div>
+          )}
+
+          <div class="prose prose-invert prose-emerald max-w-none prose-headings:uppercase prose-headings:tracking-widest">
+              <h3 class="text-[#10B981] text-sm font-bold mb-8">Technical Parameters</h3>
+              <div class="bg-white/5 p-8 md:p-12 rounded-sm border border-white/5 backdrop-blur-sm">
+                  {service.body ? (
+                    <PortableText value={service.body} />
+                  ) : (
+                    <p class="text-gray-500 italic">No specific data available for this unit.</p>
+                  )}
+              </div>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-4">
+          <div class="sticky top-32 space-y-6">
+            <div class="bg-[#161e31] p-8 border border-white/5 rounded-sm">
+                <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Unit Support</h4>
+                <p class="text-gray-400 text-sm mb-8 leading-relaxed">
+                  Request comprehensive data sheets and integration guides for the <span class="text-white">{service.title}</span>.
+                </p>
+                <a href="/#contact" class="flex items-center justify-center w-full bg-[#10B981] text-[#0F172A] py-4 rounded-sm font-bold uppercase tracking-tighter text-[11px] hover:bg-[#059669] shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all">
+                  Request Access
+                </a>
+            </div>
+            
+            <div class="p-8 border border-white/5 rounded-sm flex items-center justify-between">
+                <span class="text-[10px] uppercase text-gray-500 font-bold tracking-widest">Status</span>
+                <span class="flex items-center gap-2 text-[10px] uppercase text-[#10B981] font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
+                    Operational
+                </span>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Fixes for PortableText inside Dark Theme */
+  .prose-invert {
+    --tw-prose-body: #9ca3af;
+    --tw-prose-headings: #ffffff;
+    --tw-prose-links: #10B981;
+    --tw-prose-bold: #ffffff;
+  }
+</style>

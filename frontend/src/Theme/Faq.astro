@@ -1,0 +1,116 @@
+---
+/**
+ * Minimal FAQ - Integrated with GM-Connect Navbar Theme
+ * Palette: Emerald (#10B981) & Deep Sea Blue (#0F172A)
+ */
+import Wrapper from '../layouts/Wrapper.astro';
+import { sanityClient } from "sanity:client";
+
+interface FaqItem {
+  question: string;
+  answer: string;
+  order: number;
+}
+
+const faqs = await sanityClient.fetch<FaqItem[]>(
+  `*[_type == "faq"] | order(order asc)`
+);
+
+// Integrated Theme Styles based on Navbar Palette
+const themeStyles = {
+  section: "max-w-3xl mx-auto py-24  ",
+  header: "text-3xl font-black text-white tracking-tighter mb-12 flex items-center gap-3 uppercase",
+  item: "group mb-4 bg-[#0F172A] border border-white/5 hover:border-[#10B981]/50 transition-all duration-500 shadow-xl",
+  qBtn: "flex w-full items-center justify-between p-6 text-left focus:outline-none",
+  qText: "text-sm font-bold uppercase tracking-[0.2em] text-gray-300 group-hover:text-white transition-colors duration-300",
+  iBox: "w-8 h-8 flex items-center justify-center bg-white/5 rounded-sm text-[#10B981] group-hover:bg-[#10B981] group-hover:text-[#0F172A] transition-all duration-500",
+  ansCont: "faq-answer max-h-0 overflow-hidden transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)",
+  ansText: "px-6 pb-8 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-6 mx-6"
+};
+
+const activeStyle = themeStyles;
+const icons = { icon1: "fa-solid fa-plus", icon2: "fa-solid fa-minus" };
+---
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<Wrapper title="Support | GM-Connect">
+  <section id="faq" class={activeStyle.section}>
+    <div class={activeStyle.header}>
+      <span class="w-2 h-8 bg-[#10B981]"></span>
+      <h1>Frequently Asked Questions</h1>
+    </div>
+    
+    <div class="flex flex-col">
+      {faqs.map((item) => (
+        <div class={activeStyle.item}>
+          <button 
+            class={`faq-question ${activeStyle.qBtn}`}
+            data-icon1={icons.icon1}
+            data-icon2={icons.icon2}
+          >
+            <span class={activeStyle.qText}>{item.question}</span>
+            <span class={`icon-box ${activeStyle.iBox}`}>
+              <i class={`faq-icon ${icons.icon1}`}></i>
+            </span>
+          </button>
+          <div class={activeStyle.ansCont}>
+            <div class={`{activeStyle.ansText} text-[14px] text-white pl-4 pb-4`}>
+              {item.answer}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Wrapper>
+
+<script>
+  const initFaq = () => {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.faq-question');
+    
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const container = button.nextElementSibling as HTMLElement | null;
+        const iconElement = button.querySelector('.faq-icon') as HTMLElement | null;
+        const iconBox = button.querySelector('.icon-box') as HTMLElement | null;
+        
+        const icon1 = button.getAttribute('data-icon1') || '';
+        const icon2 = button.getAttribute('data-icon2') || '';
+        
+        if (!container || !iconElement) return;
+
+        const isOpen = container.style.maxHeight !== "0px" && container.style.maxHeight !== "";
+
+        // Reset others (Accordion mode)
+        document.querySelectorAll<HTMLElement>('.faq-answer').forEach(el => {
+            el.style.maxHeight = "0px";
+        });
+        document.querySelectorAll<HTMLElement>('.faq-question').forEach(btn => {
+          const icon = btn.querySelector('.faq-icon');
+          const dIcon = btn.getAttribute('data-icon1') || '';
+          if (icon) icon.className = `faq-icon ${dIcon}`;
+        });
+
+        if (!isOpen) {
+          container.style.maxHeight = `${container.scrollHeight}px`;
+          iconElement.className = `faq-icon ${icon2}`;
+        } else {
+          container.style.maxHeight = "0px";
+          iconElement.className = `faq-icon ${icon1}`;
+        }
+      });
+    });
+  };
+
+  // Initial load
+  initFaq();
+  // Handle Astro transitions
+  document.addEventListener('astro:after-swap', initFaq);
+</script>
+
+<style is:global>
+  body {
+    background-color: #0F172A;
+  }
+</style>
